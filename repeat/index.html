@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="mytes">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ngReapeat Lab</title>
+    <script type="text/javascript" src="../node_modules/angular/angular.js"></script>
+    <script src="app.js"></script>
+</head>
+
+<body ng-controller="myCtrl">
+    <h1>Tabel</h1>
+    <p>
+        <label>Kata Kunci</label>
+        <input type="search" ng-model="q" placeholder="cari" />
+    </p>
+    <p>
+    <table border="1">
+        <!-- menambah fungsi double click untuk shorting -->
+        <tr>
+            <th><a href="" ng-click="boolname = ordering(boolname, 'name');">Nama</a> </th>
+            <th><a href="" ng-click="boolclass = ordering(boolclass, 'class');">Kelas</a></th>
+            <th><a href="" ng-click="boolscore = ordering(boolscore, 'score');">Nilai</a></th>
+        </tr>
+        <tr ng-repeat="s in (result = (students | filter:q | orderBy:ord:ordstatus))">
+            <td>{{ s.name }}</td>
+            <td>{{ s.class }}</td>
+            <td>{{ s.score }}</td>
+        </tr>
+        <tr ng-if="result.length == 0">
+            <td colspan="3">Hasil Tidak Ditemukan</td>
+    </table>
+    </p>
+</body>
+
+</html>
