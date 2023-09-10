@@ -15,14 +15,25 @@ app.controller("myCtrl", function ($scope) {
     } else if (type == 1 && $scope.currentpage < $scope.pagenumber-1) {
       ++$scope.currentpage;
     }
-  };
+  }
+
+ $scope.$watchCollection('results', function(){
+    if ($scope.results == undefined) return;
+    $scope.currentpage = 0;
+    $scope.pagenumber = Math.ceil($scope.results.length / $scope.pagesize);
+ });
+
+  $scope.changeAction = function (){
+    $scope.currentpage = 0;
+    $scope.pagenumber = Math.ceil($scope.results.length / $scope.pagesize);
+  }
 
   $scope.ordering = function (ordvar, by) {
     ordvar = !ordvar;
     $scope.ordstatus = ordvar;
     $scope.ord = by;
     return ordvar;
-  };
+  }
 });
 
 var students = [

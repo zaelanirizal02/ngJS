@@ -16,7 +16,10 @@
         <input type="search" ng-model="q" placeholder="cari" />
     </p>
     <p>
-        <select ng-model="pagesize" ng-options="opt as opt for opt in pagesizes"></select>
+        <select
+        ng-change="changeAction()"
+        ng-model="pagesize" 
+        ng-options="opt as opt for opt in pagesizes"></select>
         <label>Halaman {{ currentpage + 1 }} dari {{ pagenumber }} halaman</label>
     </p>
     <p>Jumlah keseluruhan = {{ jumlah }}</p>
@@ -28,13 +31,13 @@
             <th><a href="" ng-click="boolclass = ordering(boolclass, 'class');">Kelas</a></th>
             <th><a href="" ng-click="boolscore = ordering(boolscore, 'score');">Nilai</a></th>
         </tr>
-        <tr ng-repeat="s in (result = (students | filter:q | orderBy:ord:ordstatus))"
+        <tr ng-repeat="s in (results = (students | filter:q | orderBy:ord:ordstatus))"
             ng-if="$index >= (currentpage*pagesize) && $index < ((currentpage+1)* pagesize)">
             <td>{{ s.name }}</td>
             <td>{{ s.class }}</td>
             <td>{{ s.score }}</td>
         </tr>
-        <tr ng-if="result.length == 0">
+        <tr ng-if="results.length == 0">
             <td colspan="3">Hasil Tidak Ditemukan</td>
     </table>
     </p>
