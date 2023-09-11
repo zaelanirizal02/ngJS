@@ -5,46 +5,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ngReapeat Lab</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/custom.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <script type="text/javascript" src="../node_modules/angular/angular.js"></script>
     <script src="app.js"></script>
 </head>
 
 <body ng-controller="myCtrl">
-    <h1>Tabel</h1>
-    <p>
-        <label>Kata Kunci</label>
-        <input type="search" ng-model="q" placeholder="cari" />
-    </p>
-    <p>
-        <select
-        ng-change="changeAction()"
-        ng-model="pagesize" 
-        ng-options="opt as opt for opt in pagesizes"></select>
-        <label>Halaman {{ currentpage + 1 }} dari {{ pagenumber }} halaman</label>
-    </p>
-    <p>Jumlah keseluruhan = {{ jumlah }}</p>
-    <p>
-    <table border="1">
-        <!-- menambah fungsi double click untuk shorting -->
-        <tr>
-            <th><a href="" ng-click="boolname = ordering(boolname, 'name');">Nama</a> </th>
-            <th><a href="" ng-click="boolclass = ordering(boolclass, 'class');">Kelas</a></th>
-            <th><a href="" ng-click="boolscore = ordering(boolscore, 'score');">Nilai</a></th>
-        </tr>
-        <tr ng-repeat="s in (results = (students | filter:q | orderBy:ord:ordstatus))"
-            ng-if="$index >= (currentpage*pagesize) && $index < ((currentpage+1)* pagesize)">
-            <td>{{ s.name }}</td>
-            <td>{{ s.class }}</td>
-            <td>{{ s.score }}</td>
-        </tr>
-        <tr ng-if="results.length == 0">
-            <td colspan="3">Hasil Tidak Ditemukan</td>
-    </table>
-    </p>
-    <button ng-click="currentpage = 0">Pertama</button>
-    <button ng-click="paging(0)">Sebelum</button>
-    <button ng-click="paging(1)">Selanjutnya</button>
-    <button ng-click="currentpage = pagenumber-1">Terakhir</button>
+    <div class="container">
+        <h1 class="text-center pt-5">Tabel</h1>
+
+        <div class="row">
+            <div class="row btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="col-md-8">
+                    <div class="btn-group me-2" role="">
+                        <button type="button" ng-click="changeAction(p)" ng-repeat="p in pagesizes"
+                            class="btn btn-default">{{ p }}</button>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 float-end">
+                    <div class="input-group">
+                        <div class="input-group-text" id="btnGroupAddon">
+                            <i class="bi bi-search-heart"></i>
+                        </div>
+                        <input type="search" class="form-control" ng-model="q" placeholder="cari" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <table class="table border sp5">
+                    <!-- menambah fungsi double click untuk shorting -->
+                    <tr>
+                        <th><a href="" ng-click="boolname = ordering(boolname, 'name');">Nama</a> </th>
+                        <th><a href="" ng-click="boolclass = ordering(boolclass, 'class');">Kelas</a></th>
+                        <th><a href="" ng-click="boolscore = ordering(boolscore, 'score');">Nilai</a></th>
+                    </tr>
+                    <tr ng-repeat="s in (results = (students | filter:q | orderBy:ord:ordstatus))"
+                        ng-if="$index >= (currentpage*pagesize) && $index < ((currentpage+1)* pagesize)">
+                        <td>{{ s.name }}</td>
+                        <td>{{ s.class }}</td>
+                        <td>{{ s.score }}</td>
+                    </tr>
+                    <tr ng-if="results.length == 0">
+                        <td colspan="3">Hasil Tidak Ditemukan</td>
+                </table>
+
+                <div class="row position-sticky">
+                    <ul class="pagination justify-content-center">
+                        <li>
+                            <a href="#" aria-label="Previous" ng-click="paging(0)">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        <li ng-repeat="i in getNumber(pagenumber) track by $index"
+                            ng-class="currentpage == $index ? 'active' : ''">
+                            <a class="page-link" href="#" ng-click="getPage($index)">{{ $index+1 }}</a>
+                        </li>
+                        <li>
+                            <a href="#" aria-label="Next" ng-click="paging(1)">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+
+            <div class="row text-center">
+                <small>Halaman {{ currentpage + 1 }} dari {{ pagenumber }} halaman
+            </div>
+        </div>
+        <br>
+        <!-- <p>
+            <label>Kata Kunci</label>
+            <input type="search" ng-model="q" placeholder="cari" />
+        </p>
+        <p>
+            <select ng-change="changeAction()" ng-model="pagesize"
+                ng-options="opt as opt for opt in pagesizes"></select>
+            </label>
+        </p>
+        <p class="text-center">Jumlah keseluruhan = {{ jumlah }}</p>
+        <p>
+
+        </p>
+        <button ng-click="currentpage = 0">Pertama</button>
+        <button ng-click="paging(0)">Sebelum</button>
+        <button ng-click="paging(1)">Selanjutnya</button>
+        <button ng-click="currentpage = pagenumber-1">Terakhir</button> -->
+    </div>
+
 </body>
 
 </html>

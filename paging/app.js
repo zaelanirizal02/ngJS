@@ -23,7 +23,8 @@ app.controller("myCtrl", function ($scope) {
     $scope.pagenumber = Math.ceil($scope.results.length / $scope.pagesize);
  });
 
-  $scope.changeAction = function (){
+  $scope.changeAction = function (p){
+    $scope.pagesize = p;
     $scope.currentpage = 0;
     $scope.pagenumber = Math.ceil($scope.results.length / $scope.pagesize);
   }
@@ -33,6 +34,14 @@ app.controller("myCtrl", function ($scope) {
     $scope.ordstatus = ordvar;
     $scope.ord = by;
     return ordvar;
+  }
+
+  $scope.getNumber = function (n){
+    return new Array(n);
+  }
+
+  $scope.getPage = function (i){
+    $scope.currentpage = i;
   }
 });
 
@@ -102,6 +111,7 @@ var students = [
     class: "1c",
     score: 71,
   },
+  
   {
     name: "sinta",
     class: "1c",
